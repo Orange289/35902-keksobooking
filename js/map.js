@@ -6,14 +6,23 @@ var getRandom = function (min, max) {
   return rand;
 };
 
-var location = {
-  x: getRandom(300, 900),
-  y: getRandom(100,500)
+var locations = [];
+var addresses = [];
+
+for (var k = 0; k < 8; k++) {
+
+  locations.push({
+    x: getRandom(300, 900),
+    y: getRandom(100,500)
+  });
+
+  addresses.push('' + locations[k].x + ', ' + locations[k].y + '');
 }
+
+console.log(addresses);
 
 var AVATAR = ['img/avatars/user02.png', 'img/avatars/user01.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
-var ADDRESS = '' + location.x + ', ' + location.y + '';
 var PRICE = getRandom(1000, 1000000);
 var TYPE = ['bungalo', 'bungalo', 'house', 'house', 'house', 'house', 'flat', 'flat'];
 var ROOMS = getRandom(1, 5);
@@ -42,7 +51,7 @@ for (var index = 0; index < 8; index++) {
     },
     offer: {
       title: TITLE[index],
-      address: ADDRESS[index],
+      address: addresses[index],
       price: PRICE,
       type: TYPE[index],
       rooms: ROOMS,
@@ -53,9 +62,11 @@ for (var index = 0; index < 8; index++) {
       description: DESCRIPTION,
       photos: PHOTOS
     },
-    location: location
+    location: locations[index]
   })
 }
+
+console.log(offers);
 
 var fragment = document.createDocumentFragment();
 var map = document.querySelector('.tokyo__pin-map');
@@ -77,11 +88,8 @@ for (var i = 0; i < offers.length; i++) {
 
 map.appendChild(fragment);
 
-
 var lodgeTemplate = document.querySelector('#lodge-template');
-// var newDialog = lodgeTemplate.content.querySelector('.dialog__panel').cloneNode(true);
 var mainAn = offers[0];
-// var currentDialog = document.querySelector('.dialog__panel');
 
 var lodgeTitle = document.querySelector('.lodge__title');
 var lodgeAddress = document.querySelector('.lodge__address');
