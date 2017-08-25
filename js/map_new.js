@@ -30,7 +30,7 @@ var FEATURES = [
   ['wifi', 'dishwasher', 'parking', 'washer', 'conditioner'],
   ['wifi', 'dishwasher'],
   ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
-]
+];
 var DESCRIPTION = '';
 var PHOTOS = [];
 
@@ -53,7 +53,8 @@ for (var index = 0; index < 8; index++) {
       features: FEATURES[index],
       description: DESCRIPTION,
       photos: PHOTOS
-    }
+    },
+    location: location
   })
 }
 
