@@ -6,22 +6,27 @@ var getRandom = function (min, max) {
   return rand;
 };
 
+var getRandomAvatar = function (num) {
+  var ava = 'img/avatars/user0' + num + '.png';
+  return ava;
+};
+
 var locations = [];
 var addresses = [];
+var avatars = [];
 
 for (var k = 0; k < 8; k++) {
 
   locations.push({
     x: getRandom(300, 900),
-    y: getRandom(100,500)
+    y: getRandom(100, 500)
   });
 
   addresses.push('' + locations[k].x + ', ' + locations[k].y + '');
+
+  avatars.push(getRandomAvatar(k + 1));
 }
 
-console.log(addresses);
-
-var AVATAR = ['img/avatars/user02.png', 'img/avatars/user01.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
 var PRICE = getRandom(1000, 1000000);
 var TYPE = ['bungalo', 'bungalo', 'house', 'house', 'house', 'house', 'flat', 'flat'];
@@ -47,7 +52,7 @@ var offers = [];
 for (var index = 0; index < 8; index++) {
   offers.push({
     author: {
-      avatar: AVATAR[index]
+      avatar: avatars[index]
     },
     offer: {
       title: TITLE[index],
@@ -63,10 +68,8 @@ for (var index = 0; index < 8; index++) {
       photos: PHOTOS
     },
     location: locations[index]
-  })
+  });
 }
-
-console.log(offers);
 
 var fragment = document.createDocumentFragment();
 var map = document.querySelector('.tokyo__pin-map');
@@ -88,7 +91,6 @@ for (var i = 0; i < offers.length; i++) {
 
 map.appendChild(fragment);
 
-var lodgeTemplate = document.querySelector('#lodge-template');
 var mainAn = offers[0];
 
 var lodgeTitle = document.querySelector('.lodge__title');
