@@ -6,25 +6,25 @@ var getRandom = function (min, max) {
   return rand;
 };
 
-var getRandomAvatar = function (num) {
+var getAddress = function (x, y) {
+  var addr = '' + x + ', ' + y + '';
+  return addr;
+};
+
+var locationX = getRandom(300, 900);
+var locationY = getRandom(100, 500);
+
+var getAvatar = function (num) {
   var ava = 'img/avatars/user0' + num + '.png';
   return ava;
 };
 
-var locations = [];
-var addresses = [];
 var avatars = [];
 
 for (var k = 0; k < 8; k++) {
 
-  locations.push({
-    x: getRandom(300, 900),
-    y: getRandom(100, 500)
-  });
+  avatars.push(getAvatar(k + 1));
 
-  addresses.push('' + locations[k].x + ', ' + locations[k].y + '');
-
-  avatars.push(getRandomAvatar(k + 1));
 }
 
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
@@ -56,7 +56,7 @@ for (var index = 0; index < 8; index++) {
     },
     offer: {
       title: TITLE[index],
-      address: addresses[index],
+      address: getAddress(locationX, locationY),
       price: PRICE,
       type: TYPE[index],
       rooms: ROOMS,
@@ -67,7 +67,10 @@ for (var index = 0; index < 8; index++) {
       description: DESCRIPTION,
       photos: PHOTOS
     },
-    location: locations[index]
+    location: {
+      x: locationX,
+      y: locationY
+    }
   });
 }
 
