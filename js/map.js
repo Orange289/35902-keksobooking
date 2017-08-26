@@ -11,9 +11,6 @@ var getAddress = function (x, y) {
   return addr;
 };
 
-var locationX = getRandom(300, 900);
-var locationY = getRandom(100, 500);
-
 var getAvatar = function (num) {
   var ava = 'img/avatars/user0' + num + '.png';
   return ava;
@@ -50,6 +47,8 @@ var PHOTOS = [];
 var offers = [];
 
 for (var index = 0; index < 8; index++) {
+  var locationX = getRandom(300, 900);
+  var locationY = getRandom(100, 500);
   offers.push({
     author: {
       avatar: avatars[index]
