@@ -24,31 +24,36 @@ for (var k = 0; k < 8; k++) {
 
 }
 
+var getFeatures = function (mas) {
+  var masLength = getRandom(1, mas.length);
+  var a = [];
+  for (var t = 0; t < masLength; t++) {
+    a.push(mas[t]);
+  }
+  return a;
+};
+
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
 var PRICE = getRandom(1000, 1000000);
-var TYPE = ['bungalo', 'bungalo', 'house', 'house', 'house', 'house', 'flat', 'flat'];
+var TYPE = ['bungalo', 'house', 'flat'];
 var ROOMS = getRandom(1, 5);
 var GUESTS = getRandom(1, 10);
-var CHECKIN = ['12:00', '13:00', '14:00', '12:00', '13:00', '14:00', '12:00', '13:00'];
-var CHECKOUT = ['12:00', '13:00', '14:00', '12:00', '13:00', '14:00', '12:00', '13:00'];
-var FEATURES = [
-  ['wifi', 'washer', 'elevator'],
-  ['dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  ['wifi', 'parking', 'washer', 'elevator'],
-  ['dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
-  ['wifi', 'parking', 'washer', 'elevator'],
-  ['wifi', 'dishwasher', 'parking', 'washer', 'conditioner'],
-  ['wifi', 'dishwasher'],
-  ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
-];
+var CHECKIN = ['12:00', '13:00', '14:00'];
+var CHECKOUT = ['12:00', '13:00', '14:00'];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var DESCRIPTION = '';
 var PHOTOS = [];
 
 var offers = [];
 
 for (var index = 0; index < 8; index++) {
+
   var locationX = getRandom(300, 900);
   var locationY = getRandom(100, 500);
+  var typeIndex = getRandom(0, 2);
+  var chechinIndex = getRandom(0, 2);
+  var checkoutIndex = getRandom(0, 2);
+
   offers.push({
     author: {
       avatar: avatars[index]
@@ -57,12 +62,12 @@ for (var index = 0; index < 8; index++) {
       title: TITLE[index],
       address: getAddress(locationX, locationY),
       price: PRICE,
-      type: TYPE[index],
+      type: TYPE[typeIndex],
       rooms: ROOMS,
       guests: GUESTS,
-      checkin: CHECKIN[index],
-      checkout: CHECKOUT[index],
-      features: FEATURES[index],
+      checkin: CHECKIN[chechinIndex],
+      checkout: CHECKOUT[checkoutIndex],
+      features: getFeatures(FEATURES),
       description: DESCRIPTION,
       photos: PHOTOS
     },
@@ -117,7 +122,16 @@ if (mainAn.offer.type === 'flat') {
   lodgeType.textContent = 'Дом';
 }
 
-lodgeGuests.textContent = 'Для ' + mainAn.offer.guests + ' гостей в ' + mainAn.offer.rooms + ' комнатах';
+if ((mainAn.offer.guests === 1) && (mainAn.offer.rooms === 1)) {
+  lodgeGuests.textContent = 'Для ' + mainAn.offer.guests + ' гостя в ' + mainAn.offer.rooms + ' комнатe';
+} else if (mainAn.offer.guests === 1) {
+  lodgeGuests.textContent = 'Для ' + mainAn.offer.guests + ' гостя в ' + mainAn.offer.rooms + ' комнатах';
+} else if (mainAn.offer.rooms === 1) {
+  lodgeGuests.textContent = 'Для ' + mainAn.offer.guests + ' гостей в ' + mainAn.offer.rooms + ' комнате';
+} else {
+  lodgeGuests.textContent = 'Для ' + mainAn.offer.guests + ' гостей в ' + mainAn.offer.rooms + ' комнатах';
+}
+
 lodgeCheckin.textContent = 'Заезд после ' + mainAn.offer.checkin + ', выезд до ' + mainAn.offer.checkout + '';
 
 lodgeFeatures.innerHTML = '';
