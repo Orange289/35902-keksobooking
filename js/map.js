@@ -33,9 +33,14 @@ var getFeatures = function (mas) {
   return a;
 };
 
+var type = {
+  'flat': 'Квартира',
+  'bungalo': 'Бунгало',
+  'house': 'Дом'
+}
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
 var PRICE = getRandom(1000, 1000000);
-var TYPE = ['bungalo', 'house', 'flat'];
+var TYPE = ['flat', 'bungalo', 'house'];
 var ROOMS = getRandom(1, 5);
 var GUESTS = getRandom(1, 10);
 var CHECKIN = ['12:00', '13:00', '14:00'];
@@ -117,18 +122,18 @@ var dialogCLose = offerDialog.querySelector('.dialog__close');
 var hiddenClass = 'hidden';
 var clickedEl = null;
 
+var contentForOfferType = {
+  'flat': 'Квартира',
+  'bungalo': 'Бунгало',
+  'house': 'Дом'
+}
+
 var fillDialog = function (d) {
   lodgeTitle.textContent = offers[d].offer.title;
   lodgeAddress.textContent = offers[d].offer.address;
   lodgePrice.innerHTML = offers[d].offer.price + '&#x20bd;/ночь';
 
-  if (offers[d].offer.type === 'flat') {
-    lodgeType.textContent = 'Квартира';
-  } else if (offers[d].offer.type === 'bungalo') {
-    lodgeType.textContent = 'Бунгало';
-  } else {
-    lodgeType.textContent = 'Дом';
-  }
+  lodgeType.textContent = contentForOfferType[offers[d].offer.type];
 
   if ((offers[d].offer.guests === 1) && (offers[d].offer.rooms === 1)) {
     lodgeGuests.textContent = 'Для ' + offers[d].offer.guests + ' гостя в ' + offers[d].offer.rooms + ' комнатe';
