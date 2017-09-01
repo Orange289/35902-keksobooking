@@ -228,3 +228,45 @@ dialogCLose.addEventListener('keydown', function (e) {
     closeDialog();
   }
 });
+
+
+// Заполнение формы
+
+var noticeForm = document.querySelector('.notice__form');
+var address = noticeForm.elements.address;
+var title = noticeForm.elements.title;
+var timeIn = noticeForm.elements.timein;
+var timeOut = noticeForm.elements.timeout;
+var type = noticeForm.elements.type;
+var price = noticeForm.elements.price;
+var minPrice = [0, 1000, 5000, 10000];
+var formSubmit = noticeForm.querySelector('.form__submit');
+
+var getTimeOut = function () {
+  var timeSelectedIndex = timeIn.selectedIndex;
+  timeOut.selectedIndex = timeSelectedIndex;
+};
+
+timeIn.onchange = getTimeOut;
+
+var getMinPrice = function () {
+  var typeSelectedIndex = type.selectedIndex;
+  price.setAttribute('min', minPrice[typeSelectedIndex]);
+  price.setAttribute('placeholder', minPrice[typeSelectedIndex]);
+};
+
+type.onchange = getMinPrice;
+
+var setInvalidBorder = function (el) {
+  if ((el.validity.valueMissing) || (el.validity.tooShort) || (el.validity.tooLong)) {
+    el.setAttribute('style', 'border: 2px solid red;');
+  } else {
+    el.setAttribute('style', 'border: 1px solid #d9d9d3;');
+  }
+};
+
+formSubmit.addEventListener('click', function () {
+  address.addEventListener('invalid', setInvalidBorder(address));
+  title.addEventListener('invalid', setInvalidBorder(title));
+  price.addEventListener('invalid', setInvalidBorder(price));
+});
