@@ -33,11 +33,6 @@ var getFeatures = function (mas) {
   return a;
 };
 
-var type = {
-  'flat': 'Квартира',
-  'bungalo': 'Бунгало',
-  'house': 'Дом'
-}
 var TITLE = ['Неуютное бунгало по колено в воде', 'Уютное бунгало далеко от моря', 'Некрасивый негостеприимный домик', 'Красивый гостевой домик', 'Маленький ужасный дворец', 'Огромный прекрасный дворец', 'Маленькая неуютная квартира', 'Большая уютная квартира'];
 var PRICE = getRandom(1000, 1000000);
 var TYPE = ['flat', 'bungalo', 'house'];
@@ -126,7 +121,7 @@ var contentForOfferType = {
   'flat': 'Квартира',
   'bungalo': 'Бунгало',
   'house': 'Дом'
-}
+};
 
 var fillDialog = function (d) {
   lodgeTitle.textContent = offers[d].offer.title;
