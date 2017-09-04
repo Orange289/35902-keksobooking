@@ -243,10 +243,10 @@ var minPrice = [0, 1000, 5000, 10000];
 var rooms = noticeForm.elements.rooms;
 var guests = noticeForm.elements.capacity;
 var roomsGuests = {
-  '1': '1',
+  '1': ['1'],
   '2': ['1', '2'],
   '3': ['1', '2', '3'],
-  '100': '0'
+  '100': ['0']
 };
 var formSubmit = noticeForm.querySelector('.form__submit');
 
@@ -270,25 +270,15 @@ type.onchange = getMinPrice;
 var getGuestsNumber = function () {
   for (var key in roomsGuests) {
     if (rooms.value === key) {
-      if (roomsGuests[key].length > 1) {
-        guests.value = roomsGuests[key][0];
-      } else {
-        guests.value = roomsGuests[key];
-      }
+      guests.value = roomsGuests[key][0];
     }
   }
 };
 
 var getRoomsNumber = function () {
   for (var key in roomsGuests) {
-    if (roomsGuests[key].length > 1) {
-      if (roomsGuests[key].indexOf(guests.value)) {
-        rooms.value = key;
-      }
-    } else {
-      if (guests.value === roomsGuests[key]) {
-        rooms.value = key;
-      }
+    if (roomsGuests[key].indexOf(guests.value) > -1) {
+      rooms.value = key;
     }
   }
 };
