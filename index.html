@@ -76,7 +76,7 @@
       </div>
       <div class="dialog__panel">
         <h3 class="lodge__title">Уютное гнездышко для молодоженов</h3>
-        <p class="lodge__address">102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3</p>
+        <p class="lodge__address">102-0082 Tokyo-to, Chiyoda-ku, Ichibancho, 14?3</p>
         <h3 class="lodge__price">5200&#x20bd;/ночь</h3>
         <h4 class="lodge__type">Квартира</h4>
         <p class="lodge__rooms-and-guests">2 комнаты для 3 гостей</p>
@@ -117,12 +117,13 @@
     <form class="notice__form"
           method="post"
           enctype="multipart/form-data"
+          action="https://1510.dump.academy/keksobooking"
           autocomplete="off">
       <div class="form__content">
         <div class="form__panel">
           <div class="form__element  form__element--wide">
             <label for="title">Заголовок объявления</label>
-            <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка, например">
+            <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка, например"  minlength="30" maxlength="100" required>
           </div>
           <div class="form__row">
             <div class="form__element">
@@ -136,7 +137,7 @@
             </div>
             <div class="form__element">
               <label for="price">Цена за ночь, руб.</label>
-              <input id="price" name="price" type="number" placeholder="5000">
+              <input id="price" name="price" type="number" placeholder="5000" min="0,1000" max="1000000" required>
             </div>
           </div>
           <div class="form__row">
@@ -167,7 +168,7 @@
         <div class="form__panel">
           <div class="form__element  form__element--wide">
             <label for="address">Адрес</label>
-            <input id="address" name="address" type="text">
+            <input id="address" name="address" type="text" required>
           </div>
           <div class="form__row">
             <div class="form__element">
@@ -255,7 +256,7 @@
     </section>
     <nav class="footer-social">
       <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank" rel="nofollow">Twitter</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow">Instagtam</a>
+      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow">Instagram</a>
       <a href="https://www.facebook.com/htmlacademy" class="footer-social-item footer-social-item-facebook" target="_blank" rel="nofollow">Facebook</a>
       <a href="https://vk.com/htmlacademy" class="footer-social-item footer-social-item-vk" target="_blank" rel="nofollow">VK</a>
     </nav>
