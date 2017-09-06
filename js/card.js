@@ -17,7 +17,7 @@
     'house': 'Дом'
   };
 
-  var fillDialog = function (d) {
+  window.fillDialog = function (d) {
     lodgeTitle.textContent = offers[d].offer.title;
     lodgeAddress.textContent = offers[d].offer.address;
     lodgePrice.innerHTML = offers[d].offer.price + '&#x20bd;/ночь';

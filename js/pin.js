@@ -34,7 +34,7 @@
 
   var openDialog = function () {
     offerDialog.classList.remove(hiddenClass);
-    document.addEventListener('keydown', window.util.onEscPress(e, closeDialog));
+    document.addEventListener('keydown', function(e) {window.util.onEscPress(e, closeDialog)});
   };
 
   var closeDialog = function () {
@@ -43,7 +43,7 @@
     for (var q = 0; q < pin.length; q++) {
       window.util.removePinActive(pin[q], pinActiveClass);
     }
-    document.removeEventListener('keydown', window.util.onEscPress(e, closeDialog));
+    document.removeEventListener('keydown', function (e) {window.util.onEscPress(e, closeDialog)});
   };
 
   // Open dialog
@@ -57,7 +57,7 @@
     window.util.addPinActive(clickedEl, pinActiveClass);
 
     var pinIndex = clickedEl.dataset.index;
-    fillDialog(pinIndex);
+    window.fillDialog(pinIndex);
 
     openDialog();
   };
