@@ -1,3 +1,3 @@
 'use strict';
 
-window.drawPins(window.offers) ();
+window.drawPins(window.offers);

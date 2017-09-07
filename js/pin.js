@@ -3,6 +3,7 @@
 (function () {
   var fragment = document.createDocumentFragment();
   var map = document.querySelector('.tokyo__pin-map');
+  var pin = map.querySelectorAll('.pin');
 
   // Отрисовка пина
 
@@ -30,22 +31,19 @@
 
   // Взаимодействие с пином
 
-  var pin = map.querySelectorAll('.pin');
   var pinActiveClass = 'pin--active';
   var offerDialog = document.querySelector('.dialog');
   var dialogCLose = offerDialog.querySelector('.dialog__close');
   var hiddenClass = 'hidden';
   var clickedEl = null;
 
-
-  var addPinActive = function () {
-    clickedEl.classList.add(pinActiveClass);
+  var addPinActive = function (el) {
+    el.classList.add(pinActiveClass);
   };
 
-  var removePinActive = function () {
-    clickedEl.remove(pinActiveClass);
-  }
-
+  var removePinActive = function (el) {
+    el.classList.remove(pinActiveClass);
+  };
 
   var openDialog = function () {
     offerDialog.classList.remove(hiddenClass);
@@ -56,20 +54,21 @@
     offerDialog.classList.add(hiddenClass);
 
     for (var q = 0; q < pin.length; q++) {
-      pin[q].removePinActive();
+      removePinActive(pin[q]);
     }
     document.removeEventListener('keydown', function (e) {window.util.onEscPress(e, closeDialog)});
   };
+
 
   // Open dialog
 
   var onPinClick = function (e) {
     if (clickedEl) {
-      removePinActive();
+      removePinActive(clickedEl);
     }
 
     clickedEl = e.currentTarget;
-    addPinActive();
+    addPinActive(clickedEl);
 
     var pinIndex = clickedEl.dataset.index;
     window.fillDialog(pinIndex);
@@ -88,7 +87,7 @@
     closeDialog();
 
     if (clickedEl) {
-      removePinActive();
+      removePinActive(clickedEl);
     }
   };
 
