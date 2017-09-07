@@ -3,7 +3,6 @@
 (function () {
   var fragment = document.createDocumentFragment();
   var map = document.querySelector('.tokyo__pin-map');
-  var pin = map.querySelectorAll('.pin');
 
   // Отрисовка пина
 
@@ -27,72 +26,84 @@
     }
 
     map.appendChild(fragment);
-  }
+  };
 
   // Взаимодействие с пином
 
-  var pinActiveClass = 'pin--active';
-  var offerDialog = document.querySelector('.dialog');
-  var dialogCLose = offerDialog.querySelector('.dialog__close');
-  var hiddenClass = 'hidden';
-  var clickedEl = null;
+  window.actionsPin = function () {
+    var pin = map.querySelectorAll('.pin');
+    var pinActiveClass = 'pin--active';
+    var offerDialog = document.querySelector('.dialog');
+    var dialogCLose = offerDialog.querySelector('.dialog__close');
+    var hiddenClass = 'hidden';
+    var clickedEl = null;
 
-  var addPinActive = function (el) {
-    el.classList.add(pinActiveClass);
-  };
+    var addPinActive = function (el) {
+      el.classList.add(pinActiveClass);
+    };
 
-  var removePinActive = function (el) {
-    el.classList.remove(pinActiveClass);
-  };
+    var removePinActive = function (el) {
+      el.classList.remove(pinActiveClass);
+    };
 
-  var openDialog = function () {
-    offerDialog.classList.remove(hiddenClass);
-    document.addEventListener('keydown', function(e) {window.util.onEscPress(e, closeDialog)});
-  };
+    var openDialog = function () {
+      offerDialog.classList.remove(hiddenClass);
+      document.addEventListener('keydown', function (e) {
+        window.util.onEscPress(e, closeDialog);
+      });
+    };
 
-  var closeDialog = function () {
-    offerDialog.classList.add(hiddenClass);
+    var closeDialog = function () {
+      offerDialog.classList.add(hiddenClass);
 
-    for (var q = 0; q < pin.length; q++) {
-      removePinActive(pin[q]);
+      for (var q = 0; q < pin.length; q++) {
+        removePinActive(pin[q]);
+      }
+      document.removeEventListener('keydown', function (e) {
+        window.util.onEscPress(e, closeDialog);
+      });
+    };
+
+
+    // Open dialog
+
+    var onPinClick = function (e) {
+      if (clickedEl) {
+        removePinActive(clickedEl);
+      }
+
+      clickedEl = e.currentTarget;
+      addPinActive(clickedEl);
+
+      var pinIndex = clickedEl.dataset.index;
+      window.fillDialog(pinIndex);
+
+      openDialog();
+    };
+
+    for (var p = 0; p < pin.length; p++) {
+      pin[p].addEventListener('click', onPinClick);
+      pin[p].addEventListener('keydown', function (e) {
+        window.util.onEntPress(e, onPinClick(e));
+      });
     }
-    document.removeEventListener('keydown', function (e) {window.util.onEscPress(e, closeDialog)});
+
+    // Close dialog
+
+    var onCloseClick = function () {
+      closeDialog();
+
+      if (clickedEl) {
+        removePinActive(clickedEl);
+      }
+    };
+
+    dialogCLose.addEventListener('click', onCloseClick);
+
+    dialogCLose.addEventListener('keydown', function (e) {
+      window.util.onEntPress(e, closeDialog);
+    });
+
   };
 
-
-  // Open dialog
-
-  var onPinClick = function (e) {
-    if (clickedEl) {
-      removePinActive(clickedEl);
-    }
-
-    clickedEl = e.currentTarget;
-    addPinActive(clickedEl);
-
-    var pinIndex = clickedEl.dataset.index;
-    window.fillDialog(pinIndex);
-
-    openDialog();
-  };
-
-  for (var p = 0; p < pin.length; p++) {
-    pin[p].addEventListener('click', onPinClick);
-    pin[p].addEventListener('keydown', function (e) {window.util.onEntPress(e, onPinClick(e))});
-  }
-
-  // Close dialog
-
-  var onCloseClick = function () {
-    closeDialog();
-
-    if (clickedEl) {
-      removePinActive(clickedEl);
-    }
-  };
-
-  dialogCLose.addEventListener('click', onCloseClick);
-
-  dialogCLose.addEventListener('keydown', function (e) {window.util.onEntPress(e, closeDialog)});
-
-})()
+})();
