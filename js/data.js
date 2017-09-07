@@ -1,6 +1,6 @@
 'use strict';
 
-var offers = [];
+window.offers = [];
 
 (function () {
   var getAddress = function (x, y) {
@@ -47,7 +47,7 @@ var offers = [];
     var chechinIndex = window.util.getRandom(0, 2);
     var checkoutIndex = window.util.getRandom(0, 2);
 
-    offers.push({
+    window.offers.push({
       author: {
         avatar: avatars[index]
       },

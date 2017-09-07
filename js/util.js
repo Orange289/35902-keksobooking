@@ -21,16 +21,7 @@
       if (e.keykode === KEY_ENTER) {
         action();
       }
-    },
-
-    addPinActive : function (el, activeClass) {
-      el.classList.add(activeClass);
-    },
-
-    removePinActive : function (el, activeClass) {
-      el.classList.remove(activeClass);
     }
-
   }
 
 })()

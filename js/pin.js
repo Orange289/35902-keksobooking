@@ -1,27 +1,32 @@
 'use strict';
 
 (function () {
+  var fragment = document.createDocumentFragment();
+  var map = document.querySelector('.tokyo__pin-map');
+
   // Отрисовка пина
 
-  var EL_WIDTH = 56;
-  var EL_HEIGHT = 75;
+  window.drawPins = function (mas) {
+    var EL_WIDTH = 56;
+    var EL_HEIGHT = 75;
 
-  for (var i = 0; i < offers.length; i++) {
-    var newPin = document.createElement('div');
-    var elX = offers[i].location.x - EL_WIDTH / 2;
-    var elY = offers[i].location.y - EL_HEIGHT;
-    var elAva = offers[i].author.avatar;
+    for (var i = 0; i < mas.length; i++) {
+      var newPin = document.createElement('div');
+      var elX = mas[i].location.x - EL_WIDTH / 2;
+      var elY = mas[i].location.y - EL_HEIGHT;
+      var elAva = mas[i].author.avatar;
 
-    newPin.className = 'pin';
-    newPin.setAttribute('style', 'left:' + elX + 'px; top:' + elY + 'px;');
-    newPin.setAttribute('data-index', i);
+      newPin.className = 'pin';
+      newPin.setAttribute('style', 'left:' + elX + 'px; top:' + elY + 'px;');
+      newPin.setAttribute('data-index', i);
 
-    newPin.innerHTML = '<img src=' + elAva + ' class="rounded" width="40" height="40" tabindex="0">';
+      newPin.innerHTML = '<img src=' + elAva + ' class="rounded" width="40" height="40" tabindex="0">';
 
-    fragment.appendChild(newPin);
+      fragment.appendChild(newPin);
+    }
+
+    map.appendChild(fragment);
   }
-
-  map.appendChild(fragment);
 
   // Взаимодействие с пином
 
@@ -32,6 +37,16 @@
   var hiddenClass = 'hidden';
   var clickedEl = null;
 
+
+  var addPinActive = function () {
+    clickedEl.classList.add(pinActiveClass);
+  };
+
+  var removePinActive = function () {
+    clickedEl.remove(pinActiveClass);
+  }
+
+
   var openDialog = function () {
     offerDialog.classList.remove(hiddenClass);
     document.addEventListener('keydown', function(e) {window.util.onEscPress(e, closeDialog)});
@@ -41,7 +56,7 @@
     offerDialog.classList.add(hiddenClass);
 
     for (var q = 0; q < pin.length; q++) {
-      window.util.removePinActive(pin[q], pinActiveClass);
+      pin[q].removePinActive();
     }
     document.removeEventListener('keydown', function (e) {window.util.onEscPress(e, closeDialog)});
   };
@@ -50,11 +65,11 @@
 
   var onPinClick = function (e) {
     if (clickedEl) {
-      window.util.removePinActive(clickedEl, pinActiveClass);
+      removePinActive();
     }
 
     clickedEl = e.currentTarget;
-    window.util.addPinActive(clickedEl, pinActiveClass);
+    addPinActive();
 
     var pinIndex = clickedEl.dataset.index;
     window.fillDialog(pinIndex);
@@ -73,7 +88,7 @@
     closeDialog();
 
     if (clickedEl) {
-      window.util.removePinActive(clickedEl, pinActiveClass);
+      removePinActive();
     }
   };
 
