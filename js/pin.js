@@ -2,7 +2,7 @@
 
 (function () {
   var fragment = document.createDocumentFragment();
-  var map = document.querySelector('.tokyo__pin-map');
+  window.map = document.querySelector('.tokyo__pin-map');
 
   // Отрисовка пина
 
@@ -25,13 +25,13 @@
       fragment.appendChild(newPin);
     }
 
-    map.appendChild(fragment);
+    window.map.appendChild(fragment);
   };
 
   // Взаимодействие с пином
 
   window.actionsPin = function () {
-    var pin = map.querySelectorAll('.pin');
+    var pin = window.map.querySelectorAll('.pin');
     var pinActiveClass = 'pin--active';
     var offerDialog = document.querySelector('.dialog');
     var dialogCLose = offerDialog.querySelector('.dialog__close');
@@ -81,7 +81,7 @@
       openDialog();
     };
 
-    for (var p = 0; p < pin.length; p++) {
+    for (var p = 1; p < pin.length; p++) {
       pin[p].addEventListener('click', onPinClick);
       pin[p].addEventListener('keydown', function (e) {
         window.util.onEntPress(e, onPinClick(e));

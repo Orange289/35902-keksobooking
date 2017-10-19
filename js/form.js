@@ -2,7 +2,7 @@
 
 (function () {
   var noticeForm = document.querySelector('.notice__form');
-  var address = noticeForm.elements.address;
+  window.address = noticeForm.elements.address;
   var title = noticeForm.elements.title;
   var timeIn = noticeForm.elements.timein;
   var timeOut = noticeForm.elements.timeout;
@@ -64,7 +64,7 @@
   };
 
   formSubmit.addEventListener('click', function () {
-    address.addEventListener('invalid', setInvalidBorder(address));
+    window.address.addEventListener('invalid', setInvalidBorder(window.address));
     title.addEventListener('invalid', setInvalidBorder(title));
     price.addEventListener('invalid', setInvalidBorder(price));
   });
